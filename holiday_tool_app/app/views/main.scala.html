@@ -1,0 +1,26 @@
+@(title: String, user: String)(content: Html)
+
+@import model.User
+
+<!DOCTYPE>
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="header-toolbar">
+  			@if(User.isAdmin(user)) {
+				<a href="@routes.Administration.adminServices">Admin</a>
+			} else {
+				<a href="@routes.Holidays.loadUserHolidayInfo">Holidays</a>
+			}
+			<div class="options-pane">
+				<a href="@routes.Authorisation.logout">Logout</a>
+			</div>
+		</div>
+		@content
+    </body>
+</html>

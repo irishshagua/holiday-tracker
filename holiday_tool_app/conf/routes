@@ -1,0 +1,36 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           	controllers.Application.index
+GET		/landingPage					controllers.Application.landingPage
+
+# Authorisation
+GET     /login                          controllers.Authorisation.login
+POST    /login                          controllers.Authorisation.authenticate
+GET     /logout                         controllers.Authorisation.logout
+
+# Admin Page
+GET     /admin                          controllers.Administration.adminServices
+
+# Administer Users
+GET     /admin/user                    	controllers.Administration.administerUsers
+GET     /admin/user/:userId             controllers.Administration.administerSpecificUser(userId: Int)
+POST    /admin/user                  	controllers.Administration.createNewUser
+POST    /admin/user/:userId             controllers.Administration.updateUser(userId: Int)
+
+# Administer Calendars
+GET     /admin/calendar                	controllers.Administration.administerCalendars
+GET     /admin/calendar/:locale         controllers.Administration.administerSpecificCalendar(locale: Int)
+
+# Holidays Page
+GET		/holidays						controllers.Holidays.loadUserHolidayInfo()
+
+# Error Handling Page
+GET		/error							controllers.Error.index
+GET		/error/:httpErrorCode			controllers.Error.displayErrorInformation(httpErrorCode: Int)
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

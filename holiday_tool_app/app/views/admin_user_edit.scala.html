@@ -1,0 +1,43 @@
+@(pageTitle: String, loggedInAs: String, user: model.User, userEditForm: Form[(String, String, Int)])
+
+@import model.User
+@import model.Locale
+
+@import helper._
+
+@main(pageTitle, loggedInAs) {
+	<h2>Edit @user.userName details</h2>
+  
+	<p>You can edit dudes details</p>
+    
+	@form(routes.Administration.updateUser(user.id.get)) {
+		<h3>Edit Dude</h3>
+		  
+		@userEditForm.globalError.map { error =>
+    		<p class="error">
+        		@error.message
+        	</p>
+		}
+		
+		<p>
+    		<input type="text" name="userName" placeholder="@user.userName" id="userName" value="@userEditForm("userName").value"/>
+		</p>
+		<p>
+    		<input type="email" name="email" placeholder="@user.contactEmail" id="email" value="@userEditForm("email").value"/>
+		</p>
+		<p>
+    		<select type="text" name="locale" id="locale" placeholder="Location">
+				@for(l <- Locale.findAllLocales) {
+				  @if(l.id == user.id) {
+				    <option selected="selected" value="@l.id.get.toString">@l.localeName</option>
+				  } else {
+				    <option value="@l.id.get.toString">@l.localeName</option>
+				  }
+				}
+			</select>
+		</p>
+		<p>
+    		<button type="submit" id="createNewUser">Update</button>       
+		</p>
+	}
+}

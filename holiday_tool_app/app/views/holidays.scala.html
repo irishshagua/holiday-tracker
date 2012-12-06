@@ -1,0 +1,20 @@
+@(message: String, userName: String)
+
+@import model._
+
+@main(message, userName) {
+    <h2>Holiday Page</h2>
+    
+    <p>This is the info page for @userName</p>
+  
+    <p>You have @User.countRemainingUnusedHolidaysThisYear(userName) days left to take this year!</p>
+    <p>Next Upcoming Holiday: @User.nextHolidayForUser(userName)</p>
+  
+	<h3>Request New Holiday(s)</h3>
+	From - To
+	
+	<p>Pending Authorized Requests</p>
+	List - a
+	       b
+	       c
+}

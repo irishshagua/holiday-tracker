@@ -1,0 +1,58 @@
+@(pageTitle: String, user: String, userForm: Form[(String, String, Int)])
+
+@import model.User
+@import model.Locale
+
+@import helper._
+
+@main(pageTitle, user) {
+	<h2>Users</h2>
+  
+	<p>Below is a list of your managed users</p>
+    
+	<table border="1">
+		<thead>
+			<tr>
+				<th>User Name</th>
+				<th>Locale</th>
+				<th>Edit</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for(user <- User.findAllUsersByManager(1)) {
+				<tr>
+					<td>@user.userName</td>
+					<td>@user.localeShortName</td>
+					<td><a href="@routes.Administration.administerSpecificUser(user.id.get)">edit</a></td>
+				</tr>
+			} 
+		</tbody>
+	</table>
+
+	@form(routes.Administration.createNewUser) {
+		<h3>Add New User</h3>
+		  
+		@userForm.globalError.map { error =>
+    		<p class="error">
+        		@error.message
+        	</p>
+		}
+		
+		<p>
+    		<input type="text" name="userName" placeholder="User Name" id="userName" value="@userForm("userName").value"/>
+		</p>
+		<p>
+    		<input type="email" name="email" placeholder="Email" id="email" value="@userForm("email").value"/>
+		</p>
+		<p>
+    		<select type="text" name="locale" id="locale" placeholder="Location">
+				@for(l <- Locale.findAllLocales) {
+				  <option value="@l.id.get.toString">@l.localeName</option>
+				}
+			</select>
+		</p>
+		<p>
+    		<button type="submit" id="createNewUser">Create</button>       
+		</p>
+	}
+}

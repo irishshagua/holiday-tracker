@@ -1,0 +1,22 @@
+@(form: Form[(String,String)])
+
+@helper.form(routes.Authorisation.authenticate) {
+        
+	<h2>Sign in</h2>
+        
+    @form.globalError.map { error =>
+    	<p class="error">
+        	@error.message
+        </p>
+    }
+        
+    <p>
+    	<input type="email" name="email" placeholder="Email" id="email" value="@form("email").value">
+    </p>
+    <p>
+    	<input type="password" name="password" id="password" placeholder="Password">
+    </p>
+    <p>
+    	<button type="submit" id="loginbutton">Login</button>       
+    </p>    
+}
